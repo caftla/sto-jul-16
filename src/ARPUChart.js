@@ -34,7 +34,7 @@ export default class Chart extends React.Component {
         return
 
       var chartData = R.map(d =>
-        R.merge(d, { arpus: d.arpus.filter(a => a.row <= R.last(myData).row) })
+        R.merge(d, { arpus: d.arpus.filter(a => a.base > 100 && a.row <= R.last(myData).row) })
       )(myData);
 
       const color = d3.scale.linear().domain([1, chartData.length])
