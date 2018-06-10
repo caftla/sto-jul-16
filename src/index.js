@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import ARPUChart from "./ARPUChart";
 import RevenueCostChart from "./RevenueCostChart";
+import BreakevenChart from "./BreakevenChart";
 import * as R from "ramda";
 
 const {Plotly, data} = window
@@ -18,10 +19,14 @@ class Country extends React.Component {
       <h2>{ this.props.country_code }</h2>
       {
         R.sortBy(g => -1 * (g.revenue || 0 + g.cost || 0))(this.props.data).map(g =>
-          <div key={ g.gateway }>
+          <div key={ g.gateway } style={{ borderBottom: 'solid 1px gray', padding: '1em 0 1em 0' }}>
             <h3>{g.country_code} {g.gateway} Sales: {d3.format(',')(g.sales)}, Rev: ${d3.format(',.0f')(g.revenue)}, Cost: ${d3.format(',.0f')(g.cost)}</h3>
+            <h4>ARPU / eCPA and Sales</h4>
             <ARPUChart data={g.data} />
+            <h4>Revenue and Cost</h4>
             <RevenueCostChart data={g.data} />
+            <h4>Breakeven</h4>
+            <BreakevenChart data={g.data} />
           </div>
         )
       }
@@ -51,7 +56,7 @@ class ListOf extends React.Component {
 
 const App = () => (
   <div style={styles}>
-    <ListOf data={ data } />
+    <ListOf data={data} />
   </div>
 );
 
