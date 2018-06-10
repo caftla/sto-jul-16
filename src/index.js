@@ -10,7 +10,9 @@ const {d3} = Plotly
 
 const styles = {
   fontFamily: "sans-serif",
-  textAlign: "center"
+  textAlign: "center",
+  width: '1240px',
+  margin: 'auto'
 };
 
 class Country extends React.Component {
@@ -21,12 +23,18 @@ class Country extends React.Component {
         R.sortBy(g => -1 * (g.revenue || 0 + g.cost || 0))(this.props.data).map(g =>
           <div key={ g.gateway } style={{ borderBottom: 'solid 1px gray', padding: '1em 0 1em 0' }}>
             <h3>{g.country_code} {g.gateway} Sales: {d3.format(',')(g.sales)}, Rev: ${d3.format(',.0f')(g.revenue)}, Cost: ${d3.format(',.0f')(g.cost)}</h3>
-            <h4>ARPU / eCPA and Sales</h4>
-            <ARPUChart data={g.data} />
-            <h4>Revenue and Cost</h4>
-            <RevenueCostChart data={g.data} />
-            <h4>Breakeven</h4>
-            <BreakevenChart data={g.data} />
+            <div className="chart-container">
+              <div className="chart-title"><h4>ARPU / eCPA and Sales</h4></div>
+              <ARPUChart data={g.data} />
+            </div>
+            <div className="chart-container">
+              <div className="chart-title" style={{ height: '250px' }}><h4>Breakeven</h4></div>
+              <BreakevenChart data={g.data} />
+            </div>
+            <div className="chart-container">
+              <div className="chart-title" style={{height: '250px'}}><h4>Revenue and Cost</h4></div>
+              <RevenueCostChart data={g.data} />
+            </div>
           </div>
         )
       }

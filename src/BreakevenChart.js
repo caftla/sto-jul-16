@@ -71,7 +71,7 @@ export default class Chart extends React.Component {
         font: {
           color: "#333"
         },
-        margin: { t: 40, r: 80, l: 80, b: 60 },
+        margin: { t: 15, r: 80, l: 80, b: 60 },
         xaxis: {
           anchor: "y1",
           type: 'date',
@@ -86,7 +86,7 @@ export default class Chart extends React.Component {
           side: "left",
           title: "Days", ...yaxisf
         },
-        height: 300
+        height: 250
       };
 
       // return
@@ -125,7 +125,7 @@ export default class Chart extends React.Component {
   }
 
   render() {
-    return <div style={{ width: '1200px', height: '300px' }} ref='el' />
+    return <div style={{ width: '1200px', height: '250px' }} ref='el' />
   }
 
 }

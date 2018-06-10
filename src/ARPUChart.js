@@ -39,7 +39,7 @@ export default class Chart extends React.Component {
 
       const color = d3.scale.linear().domain([1, chartData.length])
         .interpolate(d3.interpolateHcl)
-        .range([d3.rgb("#007AFF"), d3.rgb('#FFF500')]);
+        .range([d3.rgb("#007AFF"), d3.rgb('#46ff00')]);
 
       // debugger
 
