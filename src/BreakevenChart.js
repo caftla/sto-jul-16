@@ -8,7 +8,8 @@ const toMyData = R.pipe(
     arpus: d.arpus.map(a => R.merge({ row: new Date(a.date) }, a)),
     breakeven: R.pipe(R.filter(a => a.breakeven), R.head, x => !!x ? x.days : null)(d.arpus),
     sales: d.sales,
-    ecpa: d.cost / d.sales
+    ecpa: d.cost / d.sales,
+    cq: d.firstbillings / d.sales
   }))
   , R.sortBy(d => d.row.valueOf())
 );
@@ -46,7 +47,7 @@ export default class Chart extends React.Component {
         mode: 'lines',
         line: {
           color: "green",
-          width: 2
+          width: 3
         },
         // xaxis: 'x1',
         yaxis: 'y1',
@@ -54,7 +55,22 @@ export default class Chart extends React.Component {
         name: 'Breakeven'
       };
 
-      var data = [breakevenChartData]
+      var cqChartData = {
+        x: chartData.map((d, i) => d.row),
+        y: chartData.map(d => d.sales > 100 ? d.cq : d.cq),
+        type: "scatter",
+        mode: 'lines',
+        line: {
+          color: "blue",
+          dash: 'line',
+          width: 2
+        },
+        // xaxis: 'x1',
+        yaxis: 'y2',
+        name: 'CQ'
+      };
+
+      var data = [ breakevenChartData]
 
       const yaxisf = {
         titlefont: {
@@ -64,7 +80,6 @@ export default class Chart extends React.Component {
       }
 
       var layout = {
-        // yaxis2: { domain: [0, 1] },
         legend: { "orientation": "h" },
         plot_bgcolor: "transparent",
         paper_bgcolor: "white",
@@ -85,6 +100,16 @@ export default class Chart extends React.Component {
           zerolinecolor: "#aaa",
           side: "left",
           title: "Days", ...yaxisf
+        },
+        yaxis2: {
+          domain: [0, 1],
+          gridcolor: "#aaa",
+          zerolinecolor: "#aaa",
+          side: "right",
+          title: "CQ", ...yaxisf,
+          gridcolor: "transparent",
+          zerolinecolor: "transparent",
+          tickformat: '%'
         },
         height: 250
       };

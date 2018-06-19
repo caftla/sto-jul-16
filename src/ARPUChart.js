@@ -66,7 +66,8 @@ export default class Chart extends React.Component {
         fillcolor: "#ddd",
         mode: 'lines',
         line: {
-          color: "#ddd"
+          color: "#ddd",
+          shape: 'hvh'
         },
         // xaxis: "x1",
         yaxis: "y1",

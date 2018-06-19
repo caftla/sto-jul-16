@@ -4,7 +4,9 @@ import * as R from 'ramda'
 
 const toMyData = R.pipe(
   R.map(d => ({
-    row: new Date(d.d_month), ...d
+    row: new Date(d.d_month), 
+    cq: d.firstbillings / d.sales,
+    ...d
   }))
 );
 
@@ -40,7 +42,8 @@ export default class Chart extends React.Component {
         mode: 'lines',
         line: {
           color: "blue",
-          width: 2
+          width: 2,
+          shape: 'hvh'
         },
         // xaxis: "x1",
         yaxis: "y1",
@@ -56,7 +59,8 @@ export default class Chart extends React.Component {
         line: {
           color: "orange",
           dash: 'dash',
-          width: 2
+          width: 2,
+          shape: 'hvh'
         },
         // xaxis: 'x1',
         yaxis: 'y1',
